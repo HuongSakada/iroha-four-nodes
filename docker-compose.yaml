@@ -1,0 +1,138 @@
+version: "2.4"
+
+
+networks:
+  iroha-network:
+    name: iroha-network
+    attachable: true
+
+volumes:
+  blockstore_0:
+  blockstore_1:
+  blockstore_2:
+  blockstore_3:
+
+services:
+  #node 0
+  iroha_node_0:
+    image: hyperledger/iroha:latest
+    container_name: iroha_node_0
+    expose:
+      - 10001
+    ports:
+      - 50051:50051
+    environment:
+      - "KEY=node0"
+      - "IROHA_POSTGRES_HOST=postgres_0"
+    volumes:
+      - blockstore_0:/tmp/block_store
+      - ./node0:/opt/iroha_data
+    depends_on:
+      - postgres_0
+    networks:
+      - iroha-network
+    restart: always
+  postgres_0:
+    image: postgres:9.5
+    container_name: postgres_0
+    environment:
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_USERNAME=postgres"
+    ports:
+      - "5431:5432"
+    networks:
+      - iroha-network
+    restart: always
+
+  #node 1
+  iroha_node_1:
+    image: hyperledger/iroha:latest
+    container_name: iroha_node_1
+    expose:
+      - 10001
+    ports:
+      - 50052:50051
+    environment:
+      - "KEY=node1"
+      - "IROHA_POSTGRES_HOST=postgres_1"
+    volumes:
+      - blockstore_1:/tmp/block_store
+      - ./node1:/opt/iroha_data
+    depends_on:
+      - postgres_1
+    networks:
+      - iroha-network
+    restart: always
+  postgres_1:
+    image: postgres:9.5
+    container_name: postgres_1
+    environment:
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_USERNAME=postgres"
+    ports:
+      - "5432:5432"
+    networks:
+      - iroha-network
+    restart: always
+
+  #node 2
+  iroha_node_2:
+    image: hyperledger/iroha:latest
+    container_name: iroha_node_2
+    expose:
+      - 10001
+    ports:
+      - 50053:50051
+    environment:
+      - "KEY=node2"
+      - "IROHA_POSTGRES_HOST=postgres_2"
+    volumes:
+      - blockstore_2:/tmp/block_store
+      - ./node2:/opt/iroha_data
+    depends_on:
+      - postgres_2
+    networks:
+      - iroha-network
+    restart: always
+  postgres_2:
+    image: postgres:9.5
+    container_name: postgres_2
+    environment:
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_USERNAME=postgres"
+    ports:
+      - "5433:5432"
+    networks:
+      - iroha-network
+    restart: always
+
+  #node 3
+  iroha_node_3:
+    image: hyperledger/iroha:latest
+    container_name: iroha_node_3
+    expose:
+      - 10001
+    ports:
+      - 50054:50051
+    environment:
+      - "KEY=node3"
+      - "IROHA_POSTGRES_HOST=postgres_3"
+    volumes:
+      - blockstore_3:/tmp/block_store
+      - ./node3:/opt/iroha_data
+    depends_on:
+      - postgres_3
+    networks:
+      - iroha-network
+    restart: always
+  postgres_3:
+    image: postgres:9.5
+    container_name: postgres_3
+    environment:
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_USERNAME=postgres"
+    ports:
+      - "5434:5432"
+    networks:
+      - iroha-network
+    restart: always
