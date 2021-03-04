@@ -1,4 +1,4 @@
-# iroha-four-nodes
+# Iroha Four Nodes
 
 ### Run iroha
 ``` 
