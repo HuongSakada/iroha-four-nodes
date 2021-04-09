@@ -9,7 +9,7 @@
                        {
                            "addPeer": {
                               "peer": {
-                                 "address": "iroha_node_0:10001",
+                                 "address": "iroha_node_1:10001",
                                  "peerKey": "bddd58404d1315e0eb27902c5d7c8eb0602c16238f005773df406bc191308929"
                               }
                            }
@@ -17,7 +17,7 @@
                         {
                            "addPeer": {
                               "peer": {
-                                 "address": "iroha_node_1:10001",
+                                 "address": "iroha_node_2:10001",
                                  "peerKey": "169ee4e5e1cc03d8d99a0309f5abc653f2a30db4281174fa1152cf8bf3307287"
                               }
                            }
@@ -25,7 +25,7 @@
                         {
                            "addPeer": {
                               "peer": {
-                                 "address": "iroha_node_2:10001",
+                                 "address": "iroha_node_3:10001",
                                  "peerKey": "02b4acac0670f1a751510bb401d55f96ce3895f5cc3cadf9cd1c6f30cae4e075"
                               }
                            }
@@ -33,7 +33,7 @@
                         {
                            "addPeer": {
                               "peer": {
-                                 "address": "iroha_node_3:10001",
+                                 "address": "iroha_node_4:10001",
                                  "peerKey": "d04da271b57fe63426ae1dc97f6952104037411fcf4f3b739dc217f45e5fc99b"
                               }
                            }
