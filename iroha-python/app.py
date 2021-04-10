@@ -1,5 +1,7 @@
 from enum import Enum
-import os
+import os, sys
+from colorama import init, Fore, Style
+
 from query import get_account_asset
 from command import transfer_asset
 
@@ -8,14 +10,12 @@ class ControlType(Enum):
   NUMBER = "Number"
 
 direct = 'docker/keys'
-CRED = '\033[91m'
-CEND = '\033[0m'
 
 def input_control(name, required = False, type = ControlType.TEXT):
   value = input(f"Please input {name}: ")
 
   while required == True and value == '':
-    print(f"{CRED}{name} is required{CEND}")
+    print(f"{Fore.RED}{name} is required")
     value = input(f"Please input {name}: ")
   
   if isinstance(type, ControlType):
@@ -31,22 +31,21 @@ def input_control(name, required = False, type = ControlType.TEXT):
             value = float(value)
             break
           except ValueError:
-            print(f"{CRED}{name} must be a number. Please input again!{CEND}")
+            print(f"{Fore.RED}{name} must be a number. Please input again!")
             value = input(f"Please input {name}: ")
             continue
     else:
-      print('Invalid input!')
+      print(f'{Fore.YELLOW}[{type}]: Unknown control type!')
   else:
-    print('Invalid input!')
+    print(f'{Fore.YELLOW}[{type}]: Invalid control type!')
 
   return value
-def welcome ():
-  print("""\x1b[6;30;42m
 
-  Welcome to Sora Testnet 
-  \x1b[0m
-  """)
+def welcome ():
+  welcome = ' Welcome to Sora KH '
+  print (f"{Fore.GREEN}\n{welcome.center(60, '#')}\n")
   return input_control('Account Id', True)
+
 def command_list():
   print("""
     Please input the command number:
@@ -56,7 +55,8 @@ def command_list():
   """)
   return input_control('Command > ', True, ControlType.NUMBER)
 
-def init():
+def App():
+  init(autoreset=True)
   account_id = welcome()
   command = command_list()
   private_key = open(os.path.join(direct, f'{account_id}.priv')).read()
@@ -89,9 +89,8 @@ def init():
     if command == 0:
       break
     else:
-      print(f"{CRED}Invalid command number!{CEND}")
+      print(f"{Fore.RED}Invalid command number!")
       command = command_list()
       continue
     
-
-init()
+App()
