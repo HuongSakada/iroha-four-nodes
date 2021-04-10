@@ -44,7 +44,16 @@ def input_control(name, required = False, type = ControlType.TEXT):
 def welcome ():
   welcome = ' Welcome to Sora KH '
   print (f"{Fore.GREEN}\n{welcome.center(60, '#')}\n")
-  return input_control('Account Id', True)
+
+def check_account_id():
+  account_id = input_control('Account Id', True)
+  validity = os.path.exists(os.path.join(direct, f'{account_id}.priv'))
+  
+  while os.path.exists(os.path.join(direct, f'{account_id}.priv')) == False:
+    print(f"{Fore.RED}Incorrect account id!")
+    account_id = input_control('Account Id', True)
+
+  return account_id
 
 def command_list():
   print("""
@@ -57,7 +66,8 @@ def command_list():
 
 def App():
   init(autoreset=True)
-  account_id = welcome()
+  welcome()
+  account_id = check_account_id()
   command = command_list()
   private_key = open(os.path.join(direct, f'{account_id}.priv')).read()
   while True:
