@@ -1,4 +1,4 @@
-from iroha import Iroha, IrohaGrpc, IrohaCrypto, primitive_pb2
+from iroha import Iroha, IrohaGrpc, IrohaCrypto
 
 network = IrohaGrpc('localhost:50051')
 
@@ -104,7 +104,7 @@ def revoke_permission(account_id, permission, creator_account_id, private_key):
 # add_asset_quantity(
 #   khr_id,
 #   '1000000',
-#   root_account_id
+#   root_account_id,
 #   root_private_key
 # )
 
