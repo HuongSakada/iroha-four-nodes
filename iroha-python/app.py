@@ -41,7 +41,7 @@ def input_control(name, required = False, type = ControlType.TEXT):
 
   return value
 
-def welcome ():
+def welcome():
   welcome = ' Welcome to Sora KH '
   print (f"{Fore.GREEN}\n{welcome.center(60, '#')}\n")
 
@@ -62,6 +62,7 @@ def command_list():
     2. Transfer asset
     0. Exit
   """)
+
   return input_control('Command > ', True, ControlType.NUMBER)
 
 def App():
@@ -70,14 +71,17 @@ def App():
   account_id = check_account_id()
   command = command_list()
   private_key = open(os.path.join(direct, f'{account_id}.priv')).read()
+  
   while True:
     if command == 1:
       print('\n')
-      get_account_asset(
+      response = get_account_asset(
         account_id,
         account_id,
         private_key
       )
+      for asset in response:
+        print(f'{Fore.BLUE}{asset}')
       command = command_list()
     if command == 2:
       amount = input_control('Amount', True, ControlType.NUMBER)
