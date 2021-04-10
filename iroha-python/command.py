@@ -1,11 +1,17 @@
 from iroha import Iroha, IrohaGrpc, IrohaCrypto
+from colorama import Style
 
 network = IrohaGrpc('localhost:50051')
 
 def sign_transaction(transaction_tx, private_key):
   IrohaCrypto.sign_transaction(transaction_tx, private_key)
   network.send_tx(transaction_tx)
-  return network.tx_status_stream(transaction_tx)
+  tx_status_stream = network.tx_status_stream(transaction_tx)
+
+  for status in tx_status_stream:
+    print(f'{Style.DIM}{status}')
+
+  return status
     
 def add_asset_quantity(asset_id, amount, creator_account_id, private_key):
   iroha = Iroha(creator_account_id)
@@ -18,7 +24,9 @@ def add_asset_quantity(asset_id, amount, creator_account_id, private_key):
       )
     ]
   )
-  return sign_transaction(transaction_tx, private_key)
+  status = sign_transaction(transaction_tx, private_key)
+
+  return status
 
 def transfer_asset(**kwargs):
   iroha = Iroha(kwargs['creator_account_id'])
@@ -34,7 +42,9 @@ def transfer_asset(**kwargs):
       )
     ]
   )
-  return sign_transaction(transaction_tx, kwargs['private_key'])
+  status = sign_transaction(transaction_tx, kwargs['private_key'])
+
+  return status
 
 def add_signatory(account_id, public_key, creator_account_id, private_key):
   iroha = Iroha(creator_account_id)
@@ -47,7 +57,9 @@ def add_signatory(account_id, public_key, creator_account_id, private_key):
       )
     ]
   )
-  return sign_transaction(transaction_tx, private_key)
+  status = sign_transaction(transaction_tx, private_key)
+
+  return status
 
 def remove_signatory(account_id, public_key, creator_account_id, private_key):
   iroha = Iroha(creator_account_id)
@@ -60,7 +72,9 @@ def remove_signatory(account_id, public_key, creator_account_id, private_key):
       )
     ]
   )
-  return sign_transaction(transaction_tx, private_key)
+  status = sign_transaction(transaction_tx, private_key)
+
+  return status
 
 def set_account_quorum(account_id, quorum, creator_account_id, private_key):
   iroha = Iroha(creator_account_id)
@@ -73,7 +87,9 @@ def set_account_quorum(account_id, quorum, creator_account_id, private_key):
       )
     ]
   )
-  return sign_transaction(transaction_tx, private_key)
+  status = sign_transaction(transaction_tx, private_key)
+
+  return status
 
 def grant_permission(account_id, permission, creator_account_id, private_key):
   iroha = Iroha(creator_account_id)
@@ -86,7 +102,9 @@ def grant_permission(account_id, permission, creator_account_id, private_key):
       )
     ]
   )
-  return sign_transaction(transaction_tx, private_key)
+  status = sign_transaction(transaction_tx, private_key)
+
+  return status
 
 def revoke_permission(account_id, permission, creator_account_id, private_key):
   iroha = Iroha(creator_account_id)
@@ -99,7 +117,9 @@ def revoke_permission(account_id, permission, creator_account_id, private_key):
       )
     ]
   )
-  return sign_transaction(transaction_tx, private_key)
+  status = sign_transaction(transaction_tx, private_key)
+
+  return status
 
 # add_asset_quantity(
 #   khr_id,

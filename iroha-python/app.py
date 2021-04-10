@@ -1,6 +1,6 @@
 from enum import Enum
 import os, sys
-from colorama import init, Fore, Style
+from colorama import init, Fore
 
 from query import get_account_asset
 from command import transfer_asset
@@ -71,7 +71,7 @@ def App():
   account_id = check_account_id()
   command = command_list()
   private_key = open(os.path.join(direct, f'{account_id}.priv')).read()
-  
+
   while True:
     if command == 1:
       print('\n')
@@ -89,7 +89,7 @@ def App():
       asset_id = input_control('Asset ID', True)
       description = input_control('Description')
 
-      res = transfer_asset(
+      transfer_asset(
         src_account_id=account_id,
         dest_account_id=dest_account_id,
         asset_id=asset_id,
@@ -98,7 +98,6 @@ def App():
         creator_account_id=account_id,
         private_key=private_key
       )
-      print(res)
       command = command_list()
     if command == 0:
       break
